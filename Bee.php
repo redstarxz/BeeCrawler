@@ -20,7 +20,7 @@ class Bee
     // 当前的任务
     private $currentTask;
 
-    public function __construct($isMaster = false, $dep = 2)
+    public function __construct($isMaster = false, $dep = CRAWL_DEP)
     {
         $this->isMaster = $isMaster;
         $this->crawlDeepth = $dep;
