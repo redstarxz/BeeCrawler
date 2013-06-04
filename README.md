@@ -23,10 +23,11 @@ BeeCrawler 是因为一道笔试题而开发的一个轻量级网页爬虫系统
 5,  爬取过程一直持续，直到队列中没有任务为止
 
 
-依赖
+第三方依赖
 
-1. 需要安装beanstalkd， 下载地址：https://github.com/kr/beanstalkd/archive/v1.9.tar.gz
+1. 需要安装beanstalkd， 下载地址： https://github.com/kr/beanstalkd/archive/v1.9.tar.gz
 
+2. beanstalkd的php客户端实现      代码地址：https://github.com/pda/pheanstalk
 
 配置
 
