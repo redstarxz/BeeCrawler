@@ -27,7 +27,7 @@ class Page
             }
         }
         //return array($match,$links[4]);
-        return $match;
+        return array_unique($match);
     } 
 
 }
