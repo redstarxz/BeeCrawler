@@ -21,6 +21,13 @@ class Task
         $this->url = $url;
     }
 
+    public static function getTask()
+    {
+        $obj = MyQueue::getInstance()->getJob();
+        $str = $obj->getData();
+        return self::formJobTask($str, $obj);
+    }
+
     public function getContent()
     {
         return json_encode(
@@ -31,7 +38,7 @@ class Task
         );
     }
 
-    public static function formJobTask($str, $job)
+    private static function formJobTask($str, $job)
     {
         $jobData = json_decode($str, true);
         $task = new self($jobData['level'], $jobData['url']);
@@ -51,7 +58,7 @@ class Task
         echo "begin crawling $this->url \n";
         $page = file_get_contents($this->url);
         // 删除完成的任务
-        MyQueue::getInstance()->deleteTask($this);
+        MyQueue::getInstance()->deleteJob($this->job);
         if (!$page) {
             echo " oh, shit! this page is empty\n";
             return;
@@ -80,9 +87,14 @@ class Task
             return false;
         }
         foreach ($urls as $url) {
-            $task = new self($level, $url);
-            MyQueue::getInstance()->putTask($task);
+            self::putTask($level, $url);
         }
         return true;
+    }
+
+    public static function putTask($level, $url)
+    {
+        $task = new self($level, $url);
+        MyQueue::getInstance()->putJob($task->getContent());
     }
 }

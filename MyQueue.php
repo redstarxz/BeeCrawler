@@ -1,5 +1,4 @@
 <?php
-require_once 'Task.php';
 require_once 'pheanstalk/pheanstalk_init.php';
 /**
 * @file MyQueue.php
@@ -28,18 +27,16 @@ class MyQueue
 
     public function getJob()
     {
-       $obj = $this->queue->watch(QUEUE_NAME)->ignore('default')->reserve();
-       $str = $obj->getData();
-       return Task::formJobTask($str, $obj);
+       return $this->queue->watch(QUEUE_NAME)->ignore('default')->reserve();
     }
 
-    public function putTask($task)
+    public function putJob($job)
     {
-        return $this->queue->useTube(QUEUE_NAME)->put($task->getContent());
+        return $this->queue->useTube(QUEUE_NAME)->put($job);
     }
 
-    public function deleteTask($task)
+    public function deleteTask($job)
     {
-        return $this->queue->delete($task->job); 
+        return $this->queue->delete($job); 
     }
 }

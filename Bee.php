@@ -1,6 +1,5 @@
 <?php
 require_once 'Init.php';
-require_once 'MyQueue.php';
 require_once 'Task.php';
 
 /**
@@ -32,7 +31,7 @@ class Bee
 
     public function getTask()
     {
-        $this->currentTask = MyQueue::getInstance()->getJob();
+        $this->currentTask = Task::getTask();
     }
 
     public function doTask()
@@ -49,8 +48,7 @@ class Bee
     */
     public function initTarget($target)
     {
-        $task = new Task(0, $target);
-        MyQueue::getInstance()->putTask($task);
+        Task::putTask(0, $target);
         return true;
     }
 
