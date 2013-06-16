@@ -1,6 +1,7 @@
 <?php
 require_once 'MyQueue.php';
 require_once 'Store.php';
+require_once 'Page.php';
 /**
 * @file Task.php
 * @brief 蜜蜂当前处理的任务
@@ -60,7 +61,7 @@ class Task
         
         if ($this->level <= $bee->getMaxDep()) {
             // reproduce task to queue
-            $bee->produceTask($this->level + 1, $page);
+            $this->produceTask($this->level + 1, $page);
         } 
     }
     
@@ -72,5 +73,16 @@ class Task
     *
     * @return Boolean
     */
-    
+    public function produceTask($level, $page)
+    {
+        $urls = Page::getUrlsFromPage($page);
+        if (!is_array($urls)) {
+            return false;
+        }
+        foreach ($urls as $url) {
+            $task = new self($level, $url);
+            MyQueue::getInstance()->putTask($task);
+        }
+        return true;
+    }
 }
