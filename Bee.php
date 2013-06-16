@@ -41,19 +41,6 @@ class Bee
         $this->currentTask->execute($this);
     }
 
-    public function produceTask($level, $page)
-    {
-        $urls = Page::getUrlsFromPage($page);
-        if (!is_array($urls)) {
-            return false;
-        }
-        foreach ($urls as $url) {
-            $task = new Task($level, $url);
-            MyQueue::getInstance()->putTask($task);
-        }
-        return true;
-    }
-
     /**
     * @brief initTarget 
     * 蜂王的初始化
