@@ -63,4 +63,14 @@ class Task
             $bee->produceTask($this->level + 1, $page);
         } 
     }
+    
+    /**
+    * @brief 将爬取到的url入队列
+    *
+    * @param $level 当前的爬取深度
+    * @param $page 爬取到的网页
+    *
+    * @return Boolean
+    */
+    
 }
