@@ -1,7 +1,6 @@
 <?php
 require_once 'Init.php';
 require_once 'MyQueue.php';
-require_once 'Page.php';
 require_once 'Task.php';
 
 /**
